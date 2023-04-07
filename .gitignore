@@ -1,2 +1,4 @@
 _js/
 __js/
+node_modules/
+dist/
