@@ -10,7 +10,6 @@ interface IGame {
     maze: Maze
     eventHandler: EventHandler
     camera: Camera
-
 }
 
 export class Game {
@@ -19,7 +18,6 @@ export class Game {
     maze: Maze
     eventHandler: EventHandler
     camera: Camera
-
 
     constructor({ player, canvas, maze, eventHandler, camera }: IGame) {
         this.player = player

@@ -7,6 +7,9 @@ import { Player } from "./Player";
 
 //Criação das instâncias das entidades
 const htmlCanvas = document.querySelector("canvas") as HTMLCanvasElement
+htmlCanvas.width = window.innerWidth - 16
+htmlCanvas.height = window.innerHeight - 16
+
 const ctx = htmlCanvas.getContext("2d") as CanvasRenderingContext2D
 
 const WIDTH = htmlCanvas.width
