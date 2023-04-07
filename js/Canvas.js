@@ -1,26 +1,27 @@
 class Canvas {
 
-    constructor({ ctx,  }) {
+    constructor({ ctx, maze }) {
         this.ctx = ctx
+        this.maze = maze
     }
 
-    render({ player, maze }){
+    render({ player }){
         this.ctx.clearRect(0, 0, WIDTH, HEIGHT);
         this.ctx.save();
         this.ctx.translate(-camera.x,-camera.y);
 
-        for(var row in maze){
-            for(var column in maze[row]){
-                var tile = maze[row][column];
-                var x = column*tileSize;
-                var y = row*tileSize;
+        for(var row in this.maze.matrix){
+
+            for(var column in this.maze.matrix[row]){
+                var tile = this.maze.matrix[row][column];
+                var x = column * this.maze.tileSize;
+                var y = row * this.maze.tileSize;
                 
                 this.ctx.drawImage(
                     img,
-                    tile * tileSrcSize,0,tileSrcSize,tileSrcSize,
-                    x,y,tileSize,tileSize
-                );
-                
+                    tile * this.maze.tileSrcSize, 0, this.maze.tileSrcSize, this.maze.tileSrcSize,
+                    x, y, this.maze.tileSize, this.maze.tileSize
+                )
             }
         }
         //desenha o personagem

@@ -1,5 +1,5 @@
 class Player {
-    constructor({ x, y, width, height, speed, srcX, srcY, countAnim }) {
+    constructor({ x, y, width, height, speed, srcX, srcY, countAnim, maze }) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -8,6 +8,7 @@ class Player {
         this.srcX = srcX;
         this.srcY = srcY;
         this.countAnim = countAnim;
+        this.maze = maze
     }
 
     //Método para movimentar o jogador
@@ -15,20 +16,20 @@ class Player {
         if (mvLeft && !mvRight) {
             this.x -= this.speed;
             //ajuste de orientação da animação para esquerda
-            this.srcY = tileSrcSize + this.height * 2;
+            this.srcY = this.maze.tileSrcSize + this.height * 2;
         } else if (mvRight && !mvLeft) {
             this.x += this.speed;
             //ajuste de orientação da animação para direita
-            this.srcY = tileSrcSize + this.height * 3;
+            this.srcY = this.maze.tileSrcSize + this.height * 3;
         }
         if (mvUp && !mvDown) {
             this.y -= this.speed;
             //ajuste de orientação da animação para cima
-            this.srcY = tileSrcSize + this.height * 1;
+            this.srcY = this.maze.tileSrcSize + this.height * 1;
         } else if (mvDown && !mvUp) {
             this.y += this.speed;
             //ajuste de orientação da animação para baixo
-            this.srcY = tileSrcSize + this.height * 0;
+            this.srcY = this.maze.tileSrcSize + this.height * 0;
         }
 
         //processo de animação
