@@ -14,20 +14,27 @@ const ctx = htmlCanvas.getContext("2d") as CanvasRenderingContext2D
 
 const WIDTH = htmlCanvas.width
 const HEIGHT = htmlCanvas.height
-const TILE_SIZE = 60;
+const TILE_SIZE = 16;
 const TILE_SRC_SIZE = 96;
 
-const image = new Image();
-image.src = "img/img.png";
+const image = new Image()
+image.src = "img/img.png"
+
+const background = new Image();
+background.src = "img/background.png"
+
+const collisions = new Image();
+collisions.src = "img/collisions.png"
 
 const maze = new Maze({
     tileSize: TILE_SIZE,
     tileSrcSize: TILE_SRC_SIZE,
 })
 
+
 const player = new Player({
-	x: TILE_SIZE + 2,
-	y: TILE_SIZE + 2,
+	x: htmlCanvas.width / 2, //TILE_SIZE + 2,
+	y: htmlCanvas.height / 2, //TILE_SIZE + 2,
 	width: 24,
 	height: 32,
 	speed: 4,
@@ -36,6 +43,8 @@ const player = new Player({
 	countAnim: 0,
     maze: maze
 })
+
+console.log(player)
 
 const camera = new Camera({
     x: 0,
@@ -51,6 +60,7 @@ const canvas = new Canvas({
 	image,
     width: WIDTH, 
     height: HEIGHT,
+	background,
 })
 
 
