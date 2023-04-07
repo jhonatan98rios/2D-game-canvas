@@ -1,12 +1,14 @@
 class Canvas {
 
-    constructor({ ctx, maze }) {
+    constructor({ ctx, maze, width, height }) {
         this.ctx = ctx
         this.maze = maze
+        this.width = width, 
+        this.height = height
     }
 
     render({ player }){
-        this.ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        this.ctx.clearRect(0, 0, this.width, this.height);
         this.ctx.save();
         this.ctx.translate(-camera.x,-camera.y);
 

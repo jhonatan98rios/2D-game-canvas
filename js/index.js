@@ -9,12 +9,9 @@ const TILE_SRC_SIZE = 96;
 
 var mvLeft = mvUp = mvRight = mvDown = false;
 
-/* var tileSize = 64;
-var tileSrcSize = 96; */
-
 const maze = new Maze({
     tileSize: TILE_SIZE,
-    tileSrcSize: TILE_SRC_SIZE
+    tileSrcSize: TILE_SRC_SIZE,
 })
 
 const player = new Player({
@@ -36,33 +33,21 @@ const camera = new Camera({
 	height: HEIGHT
 })
 
+const canvas = new Canvas({ 
+    ctx, 
+    maze, 
+    width: WIDTH, 
+    height: HEIGHT,
+})
 
 
-const canvas = new Canvas({ ctx, maze })
-const game = new Game({ player, canvas })
+const game = new Game({ 
+    player, 
+    canvas, 
+    maze 
+})
 
-const walls = []
-
-const T_WIDTH = maze.matrix[0].length * TILE_SIZE
-const T_HEIGHT = maze.matrix.length * TILE_SIZE;
-
-for(var row in maze.matrix){
-    for(var column in maze.matrix[row]){
-        var tile = maze.matrix[row][column];
-        if(tile === 1){
-            var wall = new Wall({
-                x: TILE_SIZE * column,
-                y: TILE_SIZE * row,
-                width: TILE_SIZE,
-                height: TILE_SIZE
-            })
-
-            walls.push(wall);
-        }
-    }
-}
-
-var img = new Image();
+const img = new Image();
 img.src = "img/img.png";
 
 img.addEventListener("load", function() {

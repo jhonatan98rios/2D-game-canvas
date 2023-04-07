@@ -1,30 +1,31 @@
 class Game {
 
-    constructor({ player, canvas }) {
+    constructor({ player, canvas, maze }) {
         this.player = player
         this.canvas = canvas
+        this.maze = maze
     }
 
     update(){
         if(mvLeft && !mvRight){
             this.player.x -= this.player.speed;
             //ajuste de orientação da animação para esquerda
-            this.player.srcY = this.canvas.maze.tileSrcSize + this.player.height * 2;
+            this.player.srcY = this.maze.tileSrcSize + this.player.height * 2;
         } else 
         if(mvRight && !mvLeft){
             this.player.x += this.player.speed;
             //ajuste de orientação da animação para direita
-            this.player.srcY = this.canvas.maze.tileSrcSize + this.player.height * 3;
+            this.player.srcY = this.maze.tileSrcSize + this.player.height * 3;
         }
         if(mvUp && !mvDown){
             this.player.y -= this.player.speed;
             //ajuste de orientação da animação para cima
-            this.player.srcY = this.canvas.maze.tileSrcSize + this.player.height * 1;
+            this.player.srcY = this.maze.tileSrcSize + this.player.height * 1;
         } else 
         if(mvDown && !mvUp){
             this.player.y += this.player.speed;
             //ajuste de orientação da animação para baixo
-            this.player.srcY = this.canvas.maze.tileSrcSize + this.player.height * 0;
+            this.player.srcY = this.maze.tileSrcSize + this.player.height * 0;
         }
         
         //processo de animação
@@ -41,8 +42,8 @@ class Game {
             this.player.countAnim = 0;
         }
         
-        for(var i in walls){
-            var wall = walls[i];
+        for(var i in this.maze.walls){
+            var wall = this.maze.walls[i];
             wall.blockRectangle(this.player);
         }
         
@@ -59,8 +60,8 @@ class Game {
             camera.y = this.player.y + this.player.height - (camera.height * 0.75);
         }
         
-        camera.x = Math.max(0,Math.min(T_WIDTH - camera.width,camera.x));
-        camera.y = Math.max(0,Math.min(T_HEIGHT - camera.height,camera.y));
+        camera.x = Math.max(0,Math.min(this.maze.width - camera.width,camera.x));
+        camera.y = Math.max(0,Math.min(this.maze.height - camera.height,camera.y));
     }
 
     loop(){
