@@ -14,7 +14,7 @@ const ctx = htmlCanvas.getContext("2d") as CanvasRenderingContext2D
 
 const WIDTH = htmlCanvas.width
 const HEIGHT = htmlCanvas.height
-const TILE_SIZE = 64;
+const TILE_SIZE = 60;
 const TILE_SRC_SIZE = 96;
 
 const image = new Image();
@@ -30,7 +30,7 @@ const player = new Player({
 	y: TILE_SIZE + 2,
 	width: 24,
 	height: 32,
-	speed: 2,
+	speed: 4,
 	srcX: 0,
 	srcY: TILE_SRC_SIZE,
 	countAnim: 0,
