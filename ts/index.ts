@@ -5,7 +5,6 @@ import { Game } from "./Game";
 import { Maze } from "./Maze";
 import { Player } from "./Player";
 
-
 //Criação das instâncias das entidades
 const htmlCanvas = document.querySelector("canvas") as HTMLCanvasElement
 const ctx = htmlCanvas.getContext("2d") as CanvasRenderingContext2D
@@ -14,11 +13,6 @@ const WIDTH = htmlCanvas.width
 const HEIGHT = htmlCanvas.height
 const TILE_SIZE = 64;
 const TILE_SRC_SIZE = 96;
-
-let mvLeft = false
-let mvUp = false
-let mvRight = false
-let mvDown = false;
 
 const image = new Image();
 image.src = "img/img.png";
@@ -47,8 +41,6 @@ const camera = new Camera({
 	height: HEIGHT
 })
 
-
-
 const canvas = new Canvas({ 
     ctx, 
     maze, 
@@ -58,13 +50,14 @@ const canvas = new Canvas({
     height: HEIGHT,
 })
 
+
 const eventHandler = new EventHandler()
 
 const game = new Game({ 
     player, 
     canvas, 
     maze,
-	eventHandler,
+	eventHandler: eventHandler,
 	camera
 })
 

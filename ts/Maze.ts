@@ -4,7 +4,7 @@ export class Maze {
     tileSize: number
     tileSrcSize: number
     matrix: number[][]
-    walls: any[]
+    walls: Wall[]
     width: number
     height: number
 
@@ -40,41 +40,27 @@ export class Maze {
             [1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
             [1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1],
             [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         ];
     }
 
     generateWalls() {
         let walls = []
-        // for(let row in this.matrix){
-        //     for(var column in this.matrix[row]){
-        //         var tile = this.matrix[row][column];
-        //         if(tile === 1){
-        //             var wall = new Wall({
-        //                 x: this.tileSize * column,
-        //                 y: this.tileSize * row,
-        //                 width: this.tileSize,
-        //                 height: this.tileSize
-        //             })
-
-        //             walls.push(wall);
-        //         }
-        //     }
-        // }
-
-        walls = this.matrix.map((row, i) => {
-            return row.map((column, j) => {
-                if (column === 1) {
-                    return new Wall({
-                        x: this.tileSize * j,
-                        y: this.tileSize * i,
+        for(let row in this.matrix){
+            for(var column in this.matrix[row]){
+                var tile = this.matrix[row][column];
+                if(tile === 1){
+                    var wall = new Wall({
+                        x: this.tileSize * parseInt(column),
+                        y: this.tileSize * parseInt(row),
                         width: this.tileSize,
                         height: this.tileSize
                     })
-                }
-            })
-        })
 
+                    walls.push(wall);
+                }
+            }
+        }
 
         return walls
     }

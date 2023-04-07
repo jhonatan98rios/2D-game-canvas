@@ -1,46 +1,14 @@
 class Game {
 
-    constructor({ player, canvas, maze }) {
+    constructor({ player, canvas, maze, eventHandler }) {
         this.player = player
         this.canvas = canvas
         this.maze = maze
+        this.eventHandler = eventHandler
     }
 
     update(){
-        if(mvLeft && !mvRight){
-            this.player.x -= this.player.speed;
-            //ajuste de orientação da animação para esquerda
-            this.player.srcY = this.maze.tileSrcSize + this.player.height * 2;
-        } else 
-        if(mvRight && !mvLeft){
-            this.player.x += this.player.speed;
-            //ajuste de orientação da animação para direita
-            this.player.srcY = this.maze.tileSrcSize + this.player.height * 3;
-        }
-        if(mvUp && !mvDown){
-            this.player.y -= this.player.speed;
-            //ajuste de orientação da animação para cima
-            this.player.srcY = this.maze.tileSrcSize + this.player.height * 1;
-        } else 
-        if(mvDown && !mvUp){
-            this.player.y += this.player.speed;
-            //ajuste de orientação da animação para baixo
-            this.player.srcY = this.maze.tileSrcSize + this.player.height * 0;
-        }
-        
-        //processo de animação
-        if(mvLeft || mvRight || mvUp || mvDown){
-            this.player.countAnim++;
-            
-            if(this.player.countAnim >= 40){
-                this.player.countAnim = 0;
-            }
-            
-            this.player.srcX = Math.floor(this.player.countAnim/5) * this.player.width;
-        } else {
-            this.player.srcX = 0;
-            this.player.countAnim = 0;
-        }
+        this.player.move(mvLeft, mvUp, mvRight, mvDown)
         
         for(var i in this.maze.walls){
             var wall = this.maze.walls[i];

@@ -10,65 +10,31 @@ interface IGame {
     maze: Maze
     eventHandler: EventHandler
     camera: Camera
+
 }
 
 export class Game {
-    player: Player;
-    canvas: Canvas;
-    maze: Maze;
+    player: Player
+    canvas: Canvas
+    maze: Maze
     eventHandler: EventHandler
     camera: Camera
+
 
     constructor({ player, canvas, maze, eventHandler, camera }: IGame) {
         this.player = player
         this.canvas = canvas
         this.maze = maze
-        this.eventHandler = eventHandler,
+        this.eventHandler = eventHandler
         this.camera = camera
     }
 
     update(){
-        // if(this.eventHandler.mvLeft && !this.eventHandler.mvRight){
-        //     this.player.x -= this.player.speed;
-        //     //ajuste de orientação da animação para esquerda
-        //     this.player.srcY = this.maze.tileSrcSize + this.player.height * 2;
-        // } else 
-        // if(this.eventHandler.mvRight && !this.eventHandler.mvLeft){
-        //     this.player.x += this.player.speed;
-        //     //ajuste de orientação da animação para direita
-        //     this.player.srcY = this.maze.tileSrcSize + this.player.height * 3;
-        // }
-        // if(this.eventHandler.mvUp && !this.eventHandler.mvDown){
-        //     this.player.y -= this.player.speed;
-        //     //ajuste de orientação da animação para cima
-        //     this.player.srcY = this.maze.tileSrcSize + this.player.height * 1;
-        // } else 
-        // if(this.eventHandler.mvDown && !this.eventHandler.mvUp){
-        //     this.player.y += this.player.speed;
-        //     //ajuste de orientação da animação para baixo
-        //     this.player.srcY = this.maze.tileSrcSize + this.player.height * 0;
-        // }
-        
-        // //processo de animação
-        // if(this.eventHandler.mvLeft || this.eventHandler.mvRight || this.eventHandler.mvUp || this.eventHandler.mvDown){
-        //     this.player.countAnim++;
-            
-        //     if(this.player.countAnim >= 40){
-        //         this.player.countAnim = 0;
-        //     }
-            
-        //     this.player.srcX = Math.floor(this.player.countAnim/5) * this.player.width;
-        // } else {
-        //     this.player.srcX = 0;
-        //     this.player.countAnim = 0;
-        // }
-
         this.player.move(this.eventHandler.mvLeft, this.eventHandler.mvUp, this.eventHandler.mvRight, this.eventHandler.mvDown)
-        
-        for(var i in this.maze.walls){
-            var wall = this.maze.walls[i];
+               
+        this.maze.walls.forEach(wall => {
             wall.blockRectangle(this.player);
-        }
+        })
         
         if(this.player.x < this.camera.innerLeftBoundary()){
             this.camera.x = this.player.x - (this.camera.width * 0.25);

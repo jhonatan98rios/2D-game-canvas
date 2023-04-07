@@ -40,11 +40,13 @@ const canvas = new Canvas({
     height: HEIGHT,
 })
 
+const eventHandler = new EventHandler()
 
 const game = new Game({ 
     player, 
     canvas, 
-    maze 
+    maze,
+	eventHandler
 })
 
 const img = new Image();
@@ -55,4 +57,3 @@ img.addEventListener("load", function() {
 }, false);
 
 
-const eventHandler = new EventHandler()

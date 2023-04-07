@@ -6,24 +6,29 @@ const DOWN = 40
 class EventHandler {
 
   constructor() {
-    window.addEventListener("keydown", this.keydownHandler, false);
-    window.addEventListener("keyup", this.keyupHandler, false);
+    window.addEventListener("keydown", this.keydownHandler.bind(this), false);
+    window.addEventListener("keyup", this.keyupHandler.bind(this), false);
+
+    this.mvLeft = false
+    this.mvUp = false
+    this.mvRight = false
+    this.mvDown = false
   }
 
   keydownHandler(e) {
     var key = e.keyCode;
     switch (key) {
       case LEFT:
-        mvLeft = true;
+        this.mvLeft = true;
         break;
       case UP:
-        mvUp = true;
+        this.mvUp = true;
         break;
       case RIGHT:
-        mvRight = true;
+        this.mvRight = true;
         break;
       case DOWN:
-        mvDown = true;
+        this.mvDown = true;
         break;
     }
   }
