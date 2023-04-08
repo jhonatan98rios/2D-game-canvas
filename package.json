@@ -10,10 +10,6 @@
   },
   "author": "Luiz Carlos",
   "license": "ISC",
-  "dependencies": {
-    "@types/axios": "^0.14.0",
-    "axios": "^0.19.2"
-  },
   "devDependencies": {
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.3",

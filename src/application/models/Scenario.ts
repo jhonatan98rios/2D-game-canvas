@@ -1,28 +1,28 @@
-import { collisions } from './collisions'
+import { collisions } from '../utils/collisions'
 import { Wall } from "./Wall"
 
-interface IMaze {
-    tileSize: number, 
-    tileSrcSize: number
+interface IScenario {
+    blockSize: number, 
+    blockImageSize: number
 }
 
-export class Maze {
-    tileSize: number
-    tileSrcSize: number
+export class Scenario {
+    blockSize: number
+    blockImageSize: number
     matrix: number[][]
     walls: Wall[]
     width: number
     height: number
 
-    constructor({ tileSize, tileSrcSize }: IMaze) {
-        this.tileSize = tileSize
-        this.tileSrcSize = tileSrcSize
+    constructor({ blockSize, blockImageSize }: IScenario) {
+        this.blockSize = blockSize
+        this.blockImageSize = blockImageSize
         
         this.matrix = this.generateMatrix()
         this.walls = this.generateWalls()
 
-        this.width = this.matrix[0].length * tileSize
-        this.height = this.matrix.length * tileSize;
+        this.width = this.matrix[0].length * blockSize
+        this.height = this.matrix.length * blockSize;
     }
 
     generateMatrix() {
@@ -36,10 +36,10 @@ export class Maze {
                 var tile = this.matrix[row][column];
                 if(tile === 1){
                     var wall = new Wall({
-                        x: this.tileSize * parseInt(column),
-                        y: this.tileSize * parseInt(row),
-                        width: this.tileSize,
-                        height: this.tileSize
+                        x: this.blockSize * parseInt(column),
+                        y: this.blockSize * parseInt(row),
+                        width: this.blockSize,
+                        height: this.blockSize
                     })
 
                     walls.push(wall);

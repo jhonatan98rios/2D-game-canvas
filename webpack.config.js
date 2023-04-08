@@ -1,31 +1,24 @@
 const path = require('path');
-const webpack = require('webpack');
 
-module.exports = (env, argv) => ({
-  mode: argv.mode === 'development' ? 'development': 'production',
-  entry: './ts/index.ts',
+module.exports = {
+  entry: './src/index.ts',
+  mode: 'development',
+  devtool: 'inline-source-map',
   watch: true,
-  devtool: argv.mode === 'development' ? 'inline-source-map' : false,
   output: {
-    path: path.resolve(__dirname, 'dist/js'),
-    publicPath: '/js',
-    filename: 'index.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [
       {
-        test: /\.ts?$/,
+        test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
-  resolve: {
-    extensions: [ '.ts', '.js' ],
-  },
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000
+        include: [path.resolve(__dirname, 'src')]
+      }
+    ]
   }
-})
+};

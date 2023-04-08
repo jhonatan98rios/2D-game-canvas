@@ -1,6 +1,17 @@
-//Classe para representar a câmera
-class Camera {
-    constructor({ x, y, width, height }) {
+interface ICamera { 
+    x: number,
+    y: number,
+    width: number,
+    height: number
+}
+
+export class Camera {
+    x: number
+    y: number;
+    width: number;
+    height: number;
+    
+    constructor({ x, y, width, height }: ICamera) {
         this.x = x;
         this.y = y;
         this.width = width;
