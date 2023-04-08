@@ -7,7 +7,7 @@ module.exports = (env, argv) => ({
   watch: true,
   devtool: argv.mode === 'development' ? 'inline-source-map' : false,
   output: {
-    path: path.resolve(__dirname, 'public/js'),
+    path: path.resolve(__dirname, 'dist/js'),
     publicPath: '/js',
     filename: 'index.js'
   },
@@ -24,7 +24,7 @@ module.exports = (env, argv) => ({
     extensions: [ '.ts', '.js' ],
   },
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000
   }

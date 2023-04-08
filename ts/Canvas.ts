@@ -36,7 +36,6 @@ export class Canvas {
         this.ctx.clearRect(0, 0, this.width, this.height);
         this.ctx.save();
         this.ctx.translate(-this.camera.x,-this.camera.y);
-
         
         // this.maze.matrix.forEach((row, i) => {
         //     row.forEach((column, j) => {
@@ -58,8 +57,6 @@ export class Canvas {
         //     })
         // }) 
        
-
-
         var x = this.maze.matrix.length * this.maze.tileSize
         var y = this.maze.matrix[0].length * this.maze.tileSize
 
@@ -70,7 +67,6 @@ export class Canvas {
             this.maze.matrix[0].length * this.maze.tileSize,
             this.maze.matrix.length * this.maze.tileSize
         )
-
 
         //desenha o personagem
         this.ctx.drawImage(
@@ -84,6 +80,7 @@ export class Canvas {
             player.width, 
             player.height
         );
+        
         this.ctx.restore();
     }
 }

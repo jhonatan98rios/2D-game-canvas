@@ -3,6 +3,7 @@ import { Canvas } from "./Canvas";
 import { EventHandler } from "./EventHandler";
 import { Game } from "./Game";
 import { Maze } from "./Maze";
+
 import { Player } from "./Player";
 
 //Criação das instâncias das entidades
@@ -15,16 +16,16 @@ const ctx = htmlCanvas.getContext("2d") as CanvasRenderingContext2D
 const WIDTH = htmlCanvas.width
 const HEIGHT = htmlCanvas.height
 const TILE_SIZE = 16;
-const TILE_SRC_SIZE = 96;
+const TILE_SRC_SIZE = 192;
 
 const image = new Image()
-image.src = "img/img.png"
+image.src = "img/spritesheet2x.png"
 
 const background = new Image();
 background.src = "img/background.png"
 
 const collisions = new Image();
-collisions.src = "img/collisions.png"
+collisions.src = "img/collisions2x.png"
 
 const maze = new Maze({
     tileSize: TILE_SIZE,
@@ -33,16 +34,34 @@ const maze = new Maze({
 
 
 const player = new Player({
-	x: htmlCanvas.width / 2, //TILE_SIZE + 2,
-	y: htmlCanvas.height / 2, //TILE_SIZE + 2,
-	width: 24,
-	height: 32,
+	x: htmlCanvas.width / 2, 
+	y: htmlCanvas.height / 2,
+	width: 48,
+	height: 64,
 	speed: 4,
 	srcX: 0,
 	srcY: TILE_SRC_SIZE,
 	countAnim: 0,
     maze: maze
 })
+
+// const playerImage = new Image()
+// playerImage.src = "img/player.png"
+
+// const newPlayer = new NewPlayer({
+// 	image: playerImage, 
+// 	sx: 0,
+// 	sy: 0,
+// 	swidth: 24,
+//     sheight: 32,
+//     posX: htmlCanvas.width / 2,
+//     posY: htmlCanvas.height / 2,
+//     width: 24,
+//     height: 32,
+//     countAnim: 4,
+//     speed: 4,
+//     maze: maze,
+// })
 
 console.log(player)
 

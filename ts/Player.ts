@@ -34,12 +34,13 @@ export class Player {
         this.srcY = srcY;
         this.countAnim = countAnim;
         this.maze = maze
+
+        console.log(this)
     }
 
     //Método para movimentar o jogador
     move(mvLeft: boolean, mvUp: boolean, mvRight: boolean, mvDown: boolean) {
         
-
         if (mvLeft && !mvRight) {
             this.x -= this.speed;
             //ajuste de orientação da animação para esquerda
