@@ -6,6 +6,9 @@ import { Scenario } from "./application/models/Scenario";
 import { Player } from "./application/models/Player";
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT, BLOCK_IMAGE_SIZE, BLOCK_SIZE } from "./constants"
+import { PlayerControlService } from "./application/services/PlayerControlService";
+import { SocketAdapter } from "./infra/http/SocketAdapter";
+import { ActorControlService } from "./application/services/ActorControlService";
 
 const htmlCanvas = document.querySelector("canvas") as HTMLCanvasElement
 htmlCanvas.width = SCREEN_WIDTH
@@ -56,12 +59,18 @@ const canvas = new Canvas({
 
 const eventHandler = new EventHandler()
 
+
+const socketAdapter = SocketAdapter.getInstance()
+const playerControlService = new PlayerControlService(socketAdapter, eventHandler, player)
+const actorControlService = new ActorControlService(socketAdapter)
+
 const game = new Game({ 
     player, 
     canvas, 
     scenario,
 	eventHandler,
 	camera,
+	playerControlService
 })
 
 playerSpritesheet.addEventListener("load", function() {
