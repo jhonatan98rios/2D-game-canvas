@@ -25,6 +25,9 @@ export class SocketAdapter {
         this.socket.on("connect", () => {
             console.log('connected!!', this.socket.id)
             player.id = this.socket.id
+
+            console.log('player: ')
+            console.log(player)
         })
     }
 

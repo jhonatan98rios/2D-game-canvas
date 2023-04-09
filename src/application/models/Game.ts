@@ -34,6 +34,8 @@ export class Game {
         this.camera = camera
         this.playerEventService = playerEventService
         this.actors = []
+
+        this.canvas.game = this
     }
 
     update(){
@@ -66,11 +68,13 @@ export class Game {
 
     loop(){
         this.update()
-        this.canvas.render()
         this.playerEventService.execute()
-        if (this.actorEventService) {
-            this.actorEventService.render()
-        }
+
+        this.canvas.render()
+
+        // if (this.actorEventService) {
+        //     this.actorEventService.render()
+        // }
         requestAnimationFrame(this.loop.bind(this))
     }
 }

@@ -2,6 +2,7 @@ import { Camera } from "./Camera";
 import { Scenario } from "./Scenario";
 import { Player } from "./Player";
 import { Actor } from "./Actor";
+import { Game } from "./Game";
 
 interface ICanvas {
     context: CanvasRenderingContext2D
@@ -23,6 +24,7 @@ export class Canvas {
     player: Player
     playerSpritesheet: HTMLImageElement
     background: HTMLImageElement
+    game?: Game
     
 
     constructor({ context, scenario, width, height, camera, player, playerSpritesheet, background }: ICanvas) {
@@ -40,7 +42,12 @@ export class Canvas {
         
         this.clearCanvas()
         this.renderScenario()
-        this.renderPlayer(this.player)
+
+        if (this.game) {
+            this.renderAllPlayers(this.player, this.game?.actors)
+        }
+
+        //this.renderPlayer(this.player)
         this.context.restore()
     }
 
@@ -82,6 +89,31 @@ export class Canvas {
         )
     }
 
+    private renderAllPlayers(player: Player, actors: Actor[]) {
+
+        if (this.game) {
+
+            let playerY = this.game.player.y
+    
+            let sortedActors = this.sortActors(this.game.actors)
+    
+            sortedActors
+                .filter((actor: Actor) => actor.y <= playerY)
+                .forEach((actor: Actor) => {
+                    this.renderActor(actor)
+                })
+
+            this.renderPlayer(player)
+
+            sortedActors
+                .filter((actor: Actor) => actor.y > playerY)
+                .forEach((actor: Actor) => {
+                    this.renderActor(actor)
+                })
+        }
+
+    }
+
     private renderPlayer(player: Player) {
         this.context.drawImage(
             this.playerSpritesheet,
@@ -103,14 +135,27 @@ export class Canvas {
             actor.srcY, 
             actor.width, 
             actor.height,
-            actor.x - this.camera.x, 
-            actor.y - this.camera.y, 
+            actor.x, 
+            actor.y, 
             actor.width, 
             actor.height
         );
     }
 
-    renderActors(actors: Actor[]) {
-        actors.forEach(this.renderActor.bind(this))
+    private sortActors(actors: Actor[]) {
+        return actors.sort((first: Actor, second: Actor) => (first.y > second.y) ? 1 : ((second.y > first.y) ? -1 : 0))
+    }
+
+    renderActors(game: Game) {
+        let playerY = game.player.y
+
+        let sortedActors = this.sortActors(game.actors)
+
+        sortedActors.forEach((actor: Actor) => {
+                if (actor.y < playerY) {
+                    
+                }
+                this.renderActor(actor)
+            })
     }
 }

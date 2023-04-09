@@ -40,7 +40,7 @@ export class ActorEventService {
     }
 
     render() {
-        this.game.canvas.renderActors(this.game.actors)
+        this.game.canvas.renderActors(this.game)
     }
 
     connected(body: any) {
@@ -56,12 +56,11 @@ export class ActorEventService {
 
     addAlreadyPresentActors(body: any) {
         if ( this.game.actors.length == 0) {
-            let actors = body.connectedPlayers.filter((actor: any) => actor.id != body.actor)
+            let actorsExceptPlayer = body.connectedPlayers.filter((actor: any) => actor.id != body.actor)
     
-            actors.forEach(({ id }: any) => {
+            actorsExceptPlayer.forEach(({ id }: any) => {
                 this.createActor(id)
             })
-
         }
     }
 
@@ -77,13 +76,13 @@ export class ActorEventService {
             srcY: BLOCK_IMAGE_SIZE,
             scenario: this.scenario
         })
-        console.log('createActor: ', id)
+        console.log('New player connected: ', id)
 
         this.game.actors.push(actor)
     }
 
     disconnected(body: Body) {
-        console.log('disconnected', body)
+        console.log('Player disconnected: ', body)
 
         this.game.actors = this.game.actors.filter(actor => actor.id !== body.actor)
     }
