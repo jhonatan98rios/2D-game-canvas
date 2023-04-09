@@ -47,7 +47,6 @@ export class Canvas {
             this.renderAllPlayers(this.player, this.game?.actors)
         }
 
-        //this.renderPlayer(this.player)
         this.context.restore()
     }
 

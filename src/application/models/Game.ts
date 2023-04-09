@@ -71,10 +71,6 @@ export class Game {
         this.playerEventService.execute()
 
         this.canvas.render()
-
-        // if (this.actorEventService) {
-        //     this.actorEventService.render()
-        // }
         requestAnimationFrame(this.loop.bind(this))
     }
 }

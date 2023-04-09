@@ -39,10 +39,6 @@ export class ActorEventService {
         this.game.actorEventService = this
     }
 
-    render() {
-        this.game.canvas.renderActors(this.game)
-    }
-
     connected(body: any) {
         this.addNewActors(body)
         this.addAlreadyPresentActors(body)
