@@ -1,3 +1,5 @@
+import { Player } from "./Player";
+
 interface IWall {
     x: number
     y: number
@@ -18,21 +20,21 @@ export class Wall {
         this.height = height;
     }
 
-    blockRectangle(obj: any){
-        let distX = (obj.x + obj.width/2) - (this.x + this.width/2);
-        let distY = (obj.y + obj.height/2) - (this.y + this.height/2);
+    blockRectangle(player: Player){
+        let distX = (player.x + player.width/2) - (this.x + this.width/2);
+        let distY = (player.y + player.height/2) - (this.y + this.height/2);
         
-        let sumWidth = (obj.width + this.width)/2;
-        let sumHeight = (obj.height + this.height)/2;
+        let sumWidth = (player.width + this.width)/2;
+        let sumHeight = (player.height + this.height)/2;
         
         if(Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight){
             let overlapX = sumWidth - Math.abs(distX);
             let overlapY = sumHeight - Math.abs(distY);
             
             if(overlapX > overlapY){
-                obj.y = distY > 0 ? obj.y + overlapY : obj.y - overlapY;
+                player.y = distY > 0 ? player.y + overlapY : player.y - overlapY;
             } else {
-                obj.x = distX > 0 ? obj.x + overlapX : obj.x - overlapX;
+                player.x = distX > 0 ? player.x + overlapX : player.x - overlapX;
             }
         }
     }

@@ -36,6 +36,7 @@ export class Game {
         this.actors = []
 
         this.canvas.game = this
+        this.player.game = this
     }
 
     update(){
