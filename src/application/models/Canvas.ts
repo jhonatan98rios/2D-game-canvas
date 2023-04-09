@@ -103,8 +103,8 @@ export class Canvas {
             actor.srcY, 
             actor.width, 
             actor.height,
-            actor.x, 
-            actor.y, 
+            actor.x - this.camera.x, 
+            actor.y - this.camera.y, 
             actor.width, 
             actor.height
         );

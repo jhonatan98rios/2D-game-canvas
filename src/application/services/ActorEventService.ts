@@ -43,23 +43,40 @@ export class ActorEventService {
         this.game.canvas.renderActors(this.game.actors)
     }
 
-    connected(body: Body) {
-        if (this.game.player.id && this.game.player.id != body.actor) {
+    connected(body: any) {
+        this.addNewActors(body)
+        this.addAlreadyPresentActors(body)
+    }
 
-            let actor = new Actor({
-                id: body.actor,
-                x: SCREEN_WIDTH / 2, 
-                y: SCREEN_HEIGHT / 2,
-                width: 48,
-                height: 64,
-                speed: 4,
-                srcX: 0,
-                srcY: BLOCK_IMAGE_SIZE,
-                scenario: this.scenario
-            })
-    
-            this.game.actors.push(actor)
+    addNewActors(body: any) {
+        if (this.game.player.id && this.game.player.id != body.actor) {
+            this.createActor(body.actor)
         }
+    }
+
+    addAlreadyPresentActors(body: any) {
+        if ( this.game.actors.length == 0) {
+            let actors = body.connectedPlayers.filter((actor: any) => actor.id != body.actor)
+    
+            actors.forEach((id: string) => {
+                this.createActor(id)
+            })
+        }
+    }
+
+    createActor(id: string) {
+        let actor = new Actor({
+            id,
+            x: SCREEN_WIDTH / 2, 
+            y: SCREEN_HEIGHT / 2,
+            width: 48,
+            height: 64,
+            speed: 4,
+            srcX: 0,
+            srcY: BLOCK_IMAGE_SIZE,
+            scenario: this.scenario
+        })
+        this.game.actors.push(actor)
     }
 
     disconnected(body: Body) {
