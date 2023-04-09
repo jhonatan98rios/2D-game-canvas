@@ -6,9 +6,9 @@ import { Scenario } from "./application/models/Scenario";
 import { Player } from "./application/models/Player";
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT, BLOCK_IMAGE_SIZE, BLOCK_SIZE } from "./constants"
-import { PlayerControlService } from "./application/services/PlayerControlService";
+import { PlayerEventService } from "./application/services/PlayerEventService";
 import { SocketAdapter } from "./infra/http/SocketAdapter";
-import { ActorControlService } from "./application/services/ActorControlService";
+import { ActorEventService } from "./application/services/ActorEventService";
 
 const htmlCanvas = document.querySelector("canvas") as HTMLCanvasElement
 htmlCanvas.width = SCREEN_WIDTH
@@ -29,8 +29,8 @@ const scenario = new Scenario({
 })
 
 const player = new Player({
-	x: htmlCanvas.width / 2, 
-	y: htmlCanvas.height / 2,
+	x: SCREEN_WIDTH / 2, 
+	y: SCREEN_HEIGHT / 2,
 	width: 48,
 	height: 64,
 	speed: 4,
@@ -61,8 +61,7 @@ const eventHandler = new EventHandler()
 
 
 const socketAdapter = SocketAdapter.getInstance()
-const playerControlService = new PlayerControlService(socketAdapter, eventHandler, player)
-const actorControlService = new ActorControlService(socketAdapter)
+const playerEventService = new PlayerEventService(socketAdapter, eventHandler, player)
 
 const game = new Game({ 
     player, 
@@ -70,8 +69,10 @@ const game = new Game({
     scenario,
 	eventHandler,
 	camera,
-	playerControlService
+	playerEventService
 })
+
+const actorEventService = new ActorEventService(socketAdapter, game, scenario)
 
 playerSpritesheet.addEventListener("load", function() {
 	requestAnimationFrame(game.loop.bind(game));

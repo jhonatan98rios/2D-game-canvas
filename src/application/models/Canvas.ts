@@ -1,6 +1,7 @@
 import { Camera } from "./Camera";
 import { Scenario } from "./Scenario";
 import { Player } from "./Player";
+import { Actor } from "./Actor";
 
 interface ICanvas {
     context: CanvasRenderingContext2D
@@ -93,5 +94,23 @@ export class Canvas {
             player.width, 
             player.height
         );
+    }
+
+    private renderActor(actor: Actor) {
+        this.context.drawImage(
+            this.playerSpritesheet,
+            actor.srcX, 
+            actor.srcY, 
+            actor.width, 
+            actor.height,
+            actor.x, 
+            actor.y, 
+            actor.width, 
+            actor.height
+        );
+    }
+
+    renderActors(actors: Actor[]) {
+        actors.forEach(this.renderActor.bind(this))
     }
 }

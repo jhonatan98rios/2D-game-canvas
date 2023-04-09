@@ -3,7 +3,9 @@ import { Canvas } from "./Canvas"
 import { EventHandler } from "./EventHandler"
 import { Scenario } from "./Scenario"
 import { Player } from "./Player"
-import { PlayerControlService } from "../services/PlayerControlService"
+import { PlayerEventService } from "../services/PlayerEventService"
+import { Actor } from "./Actor"
+import { ActorEventService } from "../services/ActorEventService"
 
 interface IGame {
     player: Player
@@ -11,24 +13,27 @@ interface IGame {
     scenario: Scenario
     eventHandler: EventHandler
     camera: Camera
-    playerControlService: PlayerControlService
+    playerEventService: PlayerEventService
 }
 
 export class Game {
     player: Player
+    actors: Actor[]
     canvas: Canvas
     scenario: Scenario
     eventHandler: EventHandler
     camera: Camera
-    playerControlService: PlayerControlService
+    playerEventService: PlayerEventService
+    actorEventService?: ActorEventService
 
-    constructor({ player, canvas, scenario, eventHandler, camera, playerControlService }: IGame) {
+    constructor({ player, canvas, scenario, eventHandler, camera, playerEventService }: IGame) {
         this.player = player
         this.canvas = canvas
         this.scenario = scenario
         this.eventHandler = eventHandler
         this.camera = camera
-        this.playerControlService = playerControlService
+        this.playerEventService = playerEventService
+        this.actors = []
     }
 
     update(){
@@ -38,6 +43,10 @@ export class Game {
             wall.blockRectangle(this.player)
         })
         
+        this.moveCamera()
+    }
+
+    moveCamera() {
         if(this.player.x < this.camera.innerLeftBoundary()){
             this.camera.x = this.player.x - (this.camera.width * 0.25)
         }
@@ -58,7 +67,10 @@ export class Game {
     loop(){
         this.update()
         this.canvas.render()
+        this.playerEventService.execute()
+        if (this.actorEventService) {
+            this.actorEventService.render()
+        }
         requestAnimationFrame(this.loop.bind(this))
-        this.playerControlService.execute()
     }
 }

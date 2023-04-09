@@ -1,6 +1,7 @@
 import { Scenario } from "./Scenario";
 
-interface IPlayer { 
+interface IActor {
+    id: string,
     x: number,
     y: number,
     width: number,
@@ -11,7 +12,8 @@ interface IPlayer {
     scenario: Scenario
 }
 
-export class Player {
+export class Actor {
+    id: string
     x: number;
     y: number;
     width: number;
@@ -22,7 +24,8 @@ export class Player {
     countAnim: number;
     scenario: Scenario;
 
-    constructor({ x, y, width, height, speed, srcX, srcY, scenario }: IPlayer) {
+    constructor({ id, x, y, width, height, speed, srcX, srcY, scenario }: IActor) {
+        this.id = id
         this.x = x;
         this.y = y;
         this.width = width;
