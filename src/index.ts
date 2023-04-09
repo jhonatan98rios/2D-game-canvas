@@ -60,7 +60,7 @@ const canvas = new Canvas({
 const eventHandler = new EventHandler()
 
 
-const socketAdapter = SocketAdapter.getInstance()
+const socketAdapter = SocketAdapter.getInstance(player)
 const playerEventService = new PlayerEventService(socketAdapter, eventHandler, player)
 
 const game = new Game({ 

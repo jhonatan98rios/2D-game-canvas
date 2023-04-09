@@ -1,28 +1,30 @@
-import { EventList } from "../../application/services/ActorControlService";
+import { Player } from "../../application/models/Player";
+import { EventList } from "../../application/services/ActorEventService";
 import { Socket, io } from "socket.io-client";
 
 
 
 export class SocketAdapter {
     private static instance: SocketAdapter
-    private socket: Socket
+    socket: Socket
 
-    constructor () {
+    constructor (player: Player) {
         this.socket = io("http://localhost:3000")
-        this.connect()
+        this.connect(player)
     }
 
-    public static getInstance(): SocketAdapter {
+    public static getInstance(player: Player): SocketAdapter {
         if (!SocketAdapter.instance) {
-            SocketAdapter.instance = new SocketAdapter();
+            SocketAdapter.instance = new SocketAdapter(player);
         }
 
         return SocketAdapter.instance;
     }
 
-    connect() {
+    connect(player: Player) {
         this.socket.on("connect", () => {
-            console.log('connected!')
+            console.log('connected!!', this.socket.id)
+            player.id = this.socket.id
         })
     }
 

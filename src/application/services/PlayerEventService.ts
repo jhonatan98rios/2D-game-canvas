@@ -7,6 +7,7 @@ export class PlayerEventService {
     constructor(private socketAdapter: SocketAdapter, private eventHandler: EventHandler, private player: Player) {}
 
     execute() {
+        
         if (this.eventHandler.mvUp || this.eventHandler.mvDown || this.eventHandler.mvLeft || this.eventHandler.mvRight) {
             this.socketAdapter.movePlayer({
                 payload: {

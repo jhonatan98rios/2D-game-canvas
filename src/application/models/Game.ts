@@ -60,8 +60,8 @@ export class Game {
             this.camera.y = this.player.y + this.player.height - (this.camera.height * 0.75)
         }
         
-        this.camera.x = Math.max(0,Math.min(this.scenario.width - this.camera.width, this.camera.x))
-        this.camera.y = Math.max(0,Math.min(this.scenario.height - this.camera.height, this.camera.y))
+        // this.camera.x = Math.max(0,Math.min(this.scenario.width - this.camera.width, this.camera.x))
+        // this.camera.y = Math.max(0,Math.min(this.scenario.height - this.camera.height, this.camera.y))
     }
 
     loop(){

@@ -37,30 +37,15 @@ export class Actor {
         this.countAnim = 0;
     }
 
-    move(mvLeft: boolean, mvUp: boolean, mvRight: boolean, mvDown: boolean) {
-        
-        this.positionAnimation(mvLeft, mvUp, mvRight, mvDown)
-        this.setDirection(mvLeft, mvUp, mvRight, mvDown)
-        this.spriteAnimation(mvLeft, mvUp, mvRight, mvDown)
+    positionAnimation({ x, y }: any) {
+
+        console.log({ x, y })
+        this.x = x
+        this.y = y
     }
 
-    private positionAnimation(mvLeft: boolean, mvUp: boolean, mvRight: boolean, mvDown: boolean) {
-        if (mvLeft && !mvRight) {
-            this.x -= this.speed;
+    setDirection(mvLeft: boolean, mvUp: boolean, mvRight: boolean, mvDown: boolean) {
 
-        } else if (mvRight && !mvLeft) {
-            this.x += this.speed;
-        }
-
-        if (mvUp && !mvDown) {
-            this.y -= this.speed;
-
-        } else if (mvDown && !mvUp) {
-            this.y += this.speed;
-        }
-    }
-
-    private setDirection(mvLeft: boolean, mvUp: boolean, mvRight: boolean, mvDown: boolean) {
         if (mvLeft && !mvRight) {
             this.srcY = this.scenario.blockImageSize + this.height * 2
 
@@ -76,7 +61,7 @@ export class Actor {
         }
     }
 
-    private spriteAnimation(mvLeft: boolean, mvUp: boolean, mvRight: boolean, mvDown: boolean) {
+    spriteAnimation(mvLeft: boolean, mvUp: boolean, mvRight: boolean, mvDown: boolean) {
         if (mvLeft || mvRight || mvUp || mvDown) {
             this.countAnim++;
 
