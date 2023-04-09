@@ -58,9 +58,10 @@ export class ActorEventService {
         if ( this.game.actors.length == 0) {
             let actors = body.connectedPlayers.filter((actor: any) => actor.id != body.actor)
     
-            actors.forEach((id: string) => {
+            actors.forEach(({ id }: any) => {
                 this.createActor(id)
             })
+
         }
     }
 
@@ -76,6 +77,8 @@ export class ActorEventService {
             srcY: BLOCK_IMAGE_SIZE,
             scenario: this.scenario
         })
+        console.log('createActor: ', id)
+
         this.game.actors.push(actor)
     }
 
