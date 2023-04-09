@@ -39,7 +39,8 @@ export class ActorEventService {
         this.game.actorEventService = this
     }
 
-    connected(body: any) {
+    connected(body: Body) {
+
         this.addNewActors(body)
         this.addAlreadyPresentActors(body)
     }
@@ -61,6 +62,8 @@ export class ActorEventService {
     }
 
     createActor(id: string) {
+        console.log('id: ', id)
+
         let actor = new Actor({
             id,
             x: SCREEN_WIDTH / 2, 

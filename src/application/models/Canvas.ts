@@ -90,27 +90,23 @@ export class Canvas {
 
     private renderAllPlayers(player: Player, actors: Actor[]) {
 
-        if (this.game) {
+        let playerY = player.y
 
-            let playerY = this.game.player.y
-    
-            let sortedActors = this.sortActors(this.game.actors)
-    
-            sortedActors
-                .filter((actor: Actor) => actor.y <= playerY)
-                .forEach((actor: Actor) => {
-                    this.renderActor(actor)
-                })
+        let sortedActors = this.sortActors(actors)
 
-            this.renderPlayer(player)
+        sortedActors
+            .filter((actor: Actor) => actor.y <= playerY)
+            .forEach((actor: Actor) => {
+                this.renderActor(actor)
+            })
 
-            sortedActors
-                .filter((actor: Actor) => actor.y > playerY)
-                .forEach((actor: Actor) => {
-                    this.renderActor(actor)
-                })
-        }
+        this.renderPlayer(player)
 
+        sortedActors
+            .filter((actor: Actor) => actor.y > playerY)
+            .forEach((actor: Actor) => {
+                this.renderActor(actor)
+            })
     }
 
     private renderPlayer(player: Player) {
@@ -143,18 +139,5 @@ export class Canvas {
 
     private sortActors(actors: Actor[]) {
         return actors.sort((first: Actor, second: Actor) => (first.y > second.y) ? 1 : ((second.y > first.y) ? -1 : 0))
-    }
-
-    renderActors(game: Game) {
-        let playerY = game.player.y
-
-        let sortedActors = this.sortActors(game.actors)
-
-        sortedActors.forEach((actor: Actor) => {
-                if (actor.y < playerY) {
-                    
-                }
-                this.renderActor(actor)
-            })
     }
 }
