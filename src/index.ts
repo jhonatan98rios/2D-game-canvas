@@ -9,6 +9,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT, BLOCK_IMAGE_SIZE, BLOCK_SIZE } from "./con
 import { PlayerEventService } from "./application/services/PlayerEventService";
 import { SocketAdapter } from "./infra/http/SocketAdapter";
 import { ActorEventService } from "./application/services/ActorEventService";
+import { layers } from "./database/scenarios/mock";
 
 const htmlCanvas = document.querySelector("canvas") as HTMLCanvasElement
 htmlCanvas.width = SCREEN_WIDTH
@@ -20,22 +21,11 @@ const context = htmlCanvas.getContext("2d") as CanvasRenderingContext2D
 const playerSpritesheet = new Image()
 playerSpritesheet.src = "img/spritesheet.png"
 
-const background = new Image();
-background.src = "img/layers/floor.png"
-
-const housesBase = new Image();
-housesBase.src = "img/layers/houses-base.png"
-
-const housesTop = new Image();
-housesTop.src = "img/layers/houses-top.png"
-
-
-
-
 
 const scenario = new Scenario({
     blockSize: BLOCK_SIZE,
     blockImageSize: BLOCK_IMAGE_SIZE,
+	layers // Replace by the layers
 })
 
 const player = new Player({
@@ -62,9 +52,6 @@ const canvas = new Canvas({
 	camera,
 	player,
 	playerSpritesheet,
-	background,
-	housesBase,
-	housesTop,
     width: SCREEN_WIDTH, 
     height: SCREEN_HEIGHT,
 })

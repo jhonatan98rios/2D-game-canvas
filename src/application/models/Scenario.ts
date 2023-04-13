@@ -1,9 +1,11 @@
+import { ScenarioLayers } from '../../database/scenarios/mock'
 import { collisions } from '../utils/collisions'
 import { Wall } from "./Wall"
 
 interface IScenario {
     blockSize: number, 
-    blockImageSize: number
+    blockImageSize: number,
+    layers: ScenarioLayers
 }
 
 export class Scenario {
@@ -13,8 +15,9 @@ export class Scenario {
     walls: Wall[]
     width: number
     height: number
+    layers: ScenarioLayers
 
-    constructor({ blockSize, blockImageSize }: IScenario) {
+    constructor({ blockSize, blockImageSize, layers }: IScenario) {
         this.blockSize = blockSize
         this.blockImageSize = blockImageSize
         
@@ -22,7 +25,9 @@ export class Scenario {
         this.walls = this.generateWalls()
 
         this.width = this.matrix[0].length * blockSize
-        this.height = this.matrix.length * blockSize;
+        this.height = this.matrix.length * blockSize
+
+        this.layers = layers
     }
 
     generateMatrix() {

@@ -3,6 +3,7 @@ import { Scenario } from "./Scenario";
 import { Player } from "./Player";
 import { Actor } from "./Actor";
 import { Game } from "./Game";
+import { Element } from "../../database/scenarios/mock";
 
 interface ICanvas {
     context: CanvasRenderingContext2D
@@ -11,9 +12,6 @@ interface ICanvas {
     height: number
     camera: Camera
     playerSpritesheet: HTMLImageElement
-    background: HTMLImageElement
-    housesBase: HTMLImageElement
-    housesTop: HTMLImageElement
     player: Player
 }
 
@@ -25,13 +23,10 @@ export class Canvas {
     camera: Camera
     player: Player
     playerSpritesheet: HTMLImageElement
-    background: HTMLImageElement
-    housesBase: HTMLImageElement
-    housesTop: HTMLImageElement
     game?: Game
     
 
-    constructor({ context, scenario, width, height, camera, player, playerSpritesheet, background, housesBase, housesTop }: ICanvas) {
+    constructor({ context, scenario, width, height, camera, player, playerSpritesheet }: ICanvas) {
         this.context = context
         this.scenario = scenario
         this.width = width, 
@@ -39,9 +34,6 @@ export class Canvas {
         this.camera = camera
         this.player = player
         this.playerSpritesheet = playerSpritesheet
-        this.background = background
-        this.housesBase = housesBase
-        this.housesTop = housesTop
     }
 
     render(){
@@ -49,14 +41,22 @@ export class Canvas {
         this.clearCanvas()
         this.moveCamera()
 
-        this.renderScenario(this.background)
-        this.renderScenario(this.housesBase)
+        this.scenario.layers.belowThePlayers.forEach(element => {
+            this.renderElement(element)
+        })
+
 
         if (this.game) {
             this.renderAllPlayers(this.player, this.game?.actors)
         }
 
-        this.renderScenario(this.housesTop)
+        this.scenario.layers.sameLevelAsPlayers.forEach(element => {
+            this.renderElement(element)
+        })
+
+        this.scenario.layers.aboveThePlayers.forEach(element => {
+            this.renderElement(element)
+        })
 
         this.context.restore()
     }
@@ -99,6 +99,16 @@ export class Canvas {
             0,
             this.scenario.matrix[0].length * this.scenario.blockSize,
             this.scenario.matrix.length * this.scenario.blockSize
+        )
+    }
+
+    private renderElement(element: Element) {
+        this.context.drawImage(
+            element.image as CanvasImageSource,
+            element.x,
+            element.y,
+            element.width,
+            element.height
         )
     }
 
