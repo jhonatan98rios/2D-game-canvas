@@ -21,7 +21,17 @@ const playerSpritesheet = new Image()
 playerSpritesheet.src = "img/spritesheet.png"
 
 const background = new Image();
-background.src = "img/background.png"
+background.src = "img/layers/floor.png"
+
+const housesBase = new Image();
+housesBase.src = "img/layers/houses-base.png"
+
+const housesTop = new Image();
+housesTop.src = "img/layers/houses-top.png"
+
+
+
+
 
 const scenario = new Scenario({
     blockSize: BLOCK_SIZE,
@@ -53,6 +63,8 @@ const canvas = new Canvas({
 	player,
 	playerSpritesheet,
 	background,
+	housesBase,
+	housesTop,
     width: SCREEN_WIDTH, 
     height: SCREEN_HEIGHT,
 })

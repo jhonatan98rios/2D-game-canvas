@@ -119,12 +119,12 @@ export class Player {
 
             this.game.actors.forEach(actor => {
 
-                if (actor.y == player.y && actor.x == player.x) {
-                    player.x += actor.width
-                }
-
+                
                 let playerCollisionBox = this.getCollisionBox({ x: newPosition.x, y: newPosition.y, width: player.width, height: player.height })
                 let actorCollisionBox = this.getCollisionBox({ x: actor.x, y: actor.y, width: actor.width, height: actor.height })
+                
+                this.moveWhenCollide(player, actor)
+
         
                 if (playerCollisionBox.left < actorCollisionBox.right && playerCollisionBox.right > actorCollisionBox.left && playerCollisionBox.top < actorCollisionBox.bottom && playerCollisionBox.bottom > actorCollisionBox.top) {
                     hadCollision = true
@@ -135,6 +135,13 @@ export class Player {
 
         return hadCollision
     }
+
+    moveWhenCollide(player: Player, actor: Actor) {
+        if (actor.y == player.y && actor.x == player.x) {
+            player.x += actor.width
+        }
+    }
+
 
     getCollisionBox({ x, y, width, height }: any) {
         return {

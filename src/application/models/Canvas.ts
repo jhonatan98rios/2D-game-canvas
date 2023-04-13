@@ -12,6 +12,8 @@ interface ICanvas {
     camera: Camera
     playerSpritesheet: HTMLImageElement
     background: HTMLImageElement
+    housesBase: HTMLImageElement
+    housesTop: HTMLImageElement
     player: Player
 }
 
@@ -24,10 +26,12 @@ export class Canvas {
     player: Player
     playerSpritesheet: HTMLImageElement
     background: HTMLImageElement
+    housesBase: HTMLImageElement
+    housesTop: HTMLImageElement
     game?: Game
     
 
-    constructor({ context, scenario, width, height, camera, player, playerSpritesheet, background }: ICanvas) {
+    constructor({ context, scenario, width, height, camera, player, playerSpritesheet, background, housesBase, housesTop }: ICanvas) {
         this.context = context
         this.scenario = scenario
         this.width = width, 
@@ -36,16 +40,23 @@ export class Canvas {
         this.player = player
         this.playerSpritesheet = playerSpritesheet
         this.background = background
+        this.housesBase = housesBase
+        this.housesTop = housesTop
     }
 
     render(){
         
         this.clearCanvas()
-        this.renderScenario()
+        this.moveCamera()
+
+        this.renderScenario(this.background)
+        this.renderScenario(this.housesBase)
 
         if (this.game) {
             this.renderAllPlayers(this.player, this.game?.actors)
         }
+
+        this.renderScenario(this.housesTop)
 
         this.context.restore()
     }
@@ -76,11 +87,14 @@ export class Canvas {
         this.context.save();
     }
 
-    private renderScenario() {
-        this.context.translate(-this.camera.x,-this.camera.y);
+    private moveCamera() {
+        this.context.translate(-this.camera.x,-this.camera.y)
+    }
+
+    private renderScenario(background: HTMLImageElement) {
 
         this.context.drawImage(
-            this.background,
+            background,
             0,
             0,
             this.scenario.matrix[0].length * this.scenario.blockSize,
