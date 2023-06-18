@@ -35,13 +35,13 @@ export const layers: ScenarioLayers = {
     ],
 
     sameLevelAsPlayers: [
-        {
+        /* {
             image: CanvasImage("img/blocks/tree.png"),
             width: 124,
             height: 158,
             x: 1000,
             y: 300
-        },
+        }, */
     ],
 
     aboveThePlayers: [
